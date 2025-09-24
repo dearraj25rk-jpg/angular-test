@@ -1,15 +1,47 @@
 <div class="login-container">
-  <form (ngSubmit)="login()" autocomplete="off">
+  <form [formGroup]="loginForm" (ngSubmit)="login()" autocomplete="off" novalidate>
     <h2>{{ buttonLabel }}</h2>
-    <div *ngIf="error" class="error">{{ error }}</div>
+
+    <div *ngIf="error" class="error" role="alert">{{ error }}</div>
+
     <div class="form-group">
       <label for="username">{{ usernameLabel }}</label>
-      <input id="username" name="username" [(ngModel)]="username" required autofocus />
+      <input
+        id="username"
+        name="username"
+        type="text"
+        formControlName="username"
+        autocomplete="username"
+        [class.invalid]="username?.invalid && username?.touched"
+        autofocus
+      />
+      <div *ngIf="getFieldError('username')" class="field-error" role="alert">
+        {{ getFieldError('username') }}
+      </div>
     </div>
+
     <div class="form-group">
       <label for="password">{{ passwordLabel }}</label>
-      <input id="password" name="password" type="password" [(ngModel)]="password" required />
+      <input
+        id="password"
+        name="password"
+        type="password"
+        formControlName="password"
+        autocomplete="current-password"
+        [class.invalid]="password?.invalid && password?.touched"
+      />
+      <div *ngIf="getFieldError('password')" class="field-error" role="alert">
+        {{ getFieldError('password') }}
+      </div>
     </div>
-    <button type="submit">{{ buttonLabel }}</button>
+
+    <button
+      type="submit"
+      [disabled]="loginForm.invalid || isSubmitting"
+      [class.loading]="isSubmitting"
+    >
+      <span *ngIf="!isSubmitting">{{ buttonLabel }}</span>
+      <span *ngIf="isSubmitting">Logging in...</span>
+    </button>
   </form>
 </div>

@@ -4,7 +4,11 @@
       "Bash(npm run build:*)",
       "Bash(npx ng update:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(npx ng add:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run lint)",
+      "Bash(npm run build:prod:*)"
     ],
     "deny": [],
     "ask": []
