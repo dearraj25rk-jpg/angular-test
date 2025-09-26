@@ -8,7 +8,11 @@
       "Bash(npx ng add:*)",
       "Bash(npm install:*)",
       "Bash(npm run lint)",
-      "Bash(npm run build:prod:*)"
+      "Bash(npm run build:prod:*)",
+      "Bash(git push:*)",
+      "Bash(find:*)",
+      "Bash(python test:*)",
+      "Bash(del test_no_unicode.py)"
     ],
     "deny": [],
     "ask": []
