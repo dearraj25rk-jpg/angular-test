@@ -11,7 +11,9 @@
       "Bash(git config:*)",
       "Bash(git add:*)",
       "Bash(git commit -m \"$(cat <<''EOF''\nAdd CrewAI automation system for Angular upgrades\n\nImplemented comprehensive CrewAI-based system for automating Angular 17 to 20.3.0 upgrades with following features:\n\n- 6 specialized AI agents with distinct roles and capabilities\n- 8 sequential tasks for complete upgrade workflow\n- 3 MCP servers for Angular-specific operations\n- 5 custom tools for package analysis, code modification, and build validation\n- Full support for non-standalone component architecture\n- Production-ready configurations and optimizations\n- Comprehensive documentation and setup guides\n\nKey Components:\n- Dependency analyzer for version compatibility checking\n- Migration planner for upgrade strategy\n- Code transformer for component updates\n- Configuration optimizer for production settings\n- Build validator for error-free deployments\n- Documentation generator for project updates\n\nTechnical Details:\n- Modular architecture with clear separation of concerns\n- YAML-based configuration for easy customization\n- Type-safe Python code with full type hints\n- ASCII-only output for universal compatibility\n- Extensive error handling and logging\n\nProject Structure:\n- config/ - Agent and task configurations\n- src/tools/ - Custom CrewAI tools\n- src/mcp_servers/ - Model Context Protocol servers\n- src/utils/ - Utility functions and helpers\n- Complete documentation suite (README, SETUP, QUICKSTART)\n\nAuthor: Raj\nEOF\n)\")",
-      "Read(//c/Users/dearr/OneDrive/Documents/Raj/**)"
+      "Read(//c/Users/dearr/OneDrive/Documents/Raj/**)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ],
     "deny": [],
     "ask": []
