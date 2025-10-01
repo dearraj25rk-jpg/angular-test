@@ -1,9 +1,8 @@
 import { APP_BASE_HREF } from '@angular/common';
-import { CommonEngine } from '@angular/ssr';
+import { AngularNodeAppEngine } from '@angular/ssr/node';
 import express from 'express';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
-import AppServerModule from './src/main.server';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -12,7 +11,7 @@ export function app(): express.Express {
   const browserDistFolder = resolve(serverDistFolder, '../browser');
   const indexHtml = join(serverDistFolder, 'index.server.html');
 
-  const commonEngine = new CommonEngine();
+  const angularEngine = new AngularNodeAppEngine();
 
   server.set('view engine', 'html');
   server.set('views', browserDistFolder);
@@ -26,18 +25,20 @@ export function app(): express.Express {
 
   // All regular routes use the Angular engine
   server.get('*', (req, res, next) => {
-    const { protocol, originalUrl, baseUrl, headers } = req;
-
-    commonEngine
-      .render({
-        bootstrap: AppServerModule,
-        documentFilePath: indexHtml,
-        url: `${protocol}://${headers.host}${originalUrl}`,
-        publicPath: browserDistFolder,
-        providers: [{ provide: APP_BASE_HREF, useValue: baseUrl }],
+    angularEngine
+      .handle(req)
+      .then((response) => {
+        if (response) {
+          res.status(response.status);
+          response.headers.forEach((value, key) => {
+            res.setHeader(key, value);
+          });
+          response.text().then(html => res.send(html));
+        } else {
+          res.status(500).send('Error rendering page');
+        }
       })
-      .then((html) => res.send(html))
-      .catch((err) => next(err));
+      .catch((err: Error) => next(err));
   });
 
   return server;

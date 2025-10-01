@@ -4,12 +4,14 @@
     <div *ngIf="error" class="error">{{ error }}</div>
     <div class="form-group">
       <label for="username">{{ usernameLabel }}</label>
-      <input id="username" name="username" [(ngModel)]="username" required autofocus />
+      <input id="username" name="username" [(ngModel)]="username" [disabled]="isLoading" required autofocus />
     </div>
     <div class="form-group">
       <label for="password">{{ passwordLabel }}</label>
-      <input id="password" name="password" type="password" [(ngModel)]="password" required />
+      <input id="password" name="password" type="password" [(ngModel)]="password" [disabled]="isLoading" required />
     </div>
-    <button type="submit">{{ buttonLabel }}</button>
+    <button type="submit" [disabled]="isLoading">
+      {{ isLoading ? 'Loading...' : buttonLabel }}
+    </button>
   </form>
 </div>
