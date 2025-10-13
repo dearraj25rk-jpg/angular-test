@@ -1,9 +1,19 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler, Injectable } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginModule } from './login/login.module';
-import { DashboardModule } from './dashboard/dashboard.module';
+import { SharedModule } from './shared/shared.module';
+import { ErrorHandlerService } from './shared/services/error-handler.service';
+
+@Injectable()
+export class GlobalErrorHandler implements ErrorHandler {
+  constructor(private errorHandlerService: ErrorHandlerService) {}
+
+  handleError(error: any): void {
+    this.errorHandlerService.logError(error, 'Global Error Handler');
+  }
+}
 
 @NgModule({
   declarations: [
@@ -12,11 +22,15 @@ import { DashboardModule } from './dashboard/dashboard.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-  LoginModule,
-  DashboardModule
+    SharedModule,
+    LoginModule
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    {
+      provide: ErrorHandler,
+      useClass: GlobalErrorHandler
+    }
   ],
   bootstrap: [AppComponent]
 })
